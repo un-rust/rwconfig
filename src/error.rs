@@ -41,3 +41,26 @@ impl From<Error> for io::Error {
         io::Error::new(io::ErrorKind::InvalidData, e.to_string())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn error_display() {
+        assert!(Error::Parse("bad".into()).to_string().contains("parse"));
+        assert!(Error::Path("empty".into()).to_string().contains("path"));
+        let io_err = io::Error::new(io::ErrorKind::NotFound, "file");
+        assert!(Error::Io(io_err).to_string().contains("io"));
+    }
+
+    #[test]
+    fn from_io_error() {
+        let io_err = io::Error::new(io::ErrorKind::NotFound, "x");
+        let e: Error = io_err.into();
+        match &e {
+            Error::Io(_) => {}
+            _ => panic!("expected Io"),
+        }
+    }
+}
