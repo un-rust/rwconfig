@@ -50,6 +50,7 @@ impl From<Error> for io::Error {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::error::Error as StdError;
 
     #[test]
     fn error_display() {
@@ -67,5 +68,25 @@ mod tests {
             Error::Io(_) => {}
             _ => panic!("expected Io"),
         }
+    }
+
+    #[test]
+    fn error_source() {
+        let io_err = io::Error::new(io::ErrorKind::NotFound, "file");
+        let e: Error = Error::Io(io_err);
+        assert!(StdError::source(&e).is_some());
+
+        let parse_err = Error::Parse("bad".into());
+        assert!(StdError::source(&parse_err).is_none());
+
+        let path_err = Error::Path("empty".into());
+        assert!(StdError::source(&path_err).is_none());
+    }
+
+    #[test]
+    fn from_error_to_io_error() {
+        let e = Error::Parse("parse failed".into());
+        let io_err: io::Error = e.into();
+        assert_eq!(io_err.kind(), io::ErrorKind::InvalidData);
     }
 }
