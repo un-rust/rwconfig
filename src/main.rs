@@ -14,8 +14,8 @@ fn main() -> std::io::Result<()> {
     println!("a = {}", a);
 
     // set (like a setter) — each set marks config dirty
-    cfg.set("a", json!(42)).map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))?;
-    cfg.set("b", json!(100)).map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))?;
+    cfg.set("a", json!(42))?;
+    cfg.set("b", json!(100))?;
 
     println!("dirty = {}", cfg.is_dirty());
 
