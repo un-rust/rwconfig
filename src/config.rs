@@ -6,8 +6,8 @@ use crate::path;
 use c12_parser::Formatted;
 use log::trace;
 use serde_json::Value;
-use std::path::Path;
 use std::fs;
+use std::path::Path;
 
 /// Config that records every modification; call `save()` to write back to file.
 #[derive(Debug)]
@@ -152,46 +152,22 @@ mod tests {
 
     #[test]
     fn test_fixture_yaml() {
-        test_fixture_format(
-            "test.config.yaml",
-            "info.a",
-            1,
-            "info._test",
-            json!(42),
-        );
+        test_fixture_format("test.config.yaml", "info.a", 1, "info._test", json!(42));
     }
 
     #[test]
     fn test_fixture_toml() {
-        test_fixture_format(
-            "test.config.toml",
-            "info.a",
-            1,
-            "info._test",
-            json!(42),
-        );
+        test_fixture_format("test.config.toml", "info.a", 1, "info._test", json!(42));
     }
 
     #[test]
     fn test_fixture_jsonc() {
-        test_fixture_format(
-            "test.config.jsonc",
-            "a",
-            1,
-            "_test",
-            json!(42),
-        );
+        test_fixture_format("test.config.jsonc", "a", 1, "_test", json!(42));
     }
 
     #[test]
     fn test_fixture_json5() {
-        test_fixture_format(
-            "test.config.json5",
-            "a",
-            1,
-            "_test",
-            json!(42),
-        );
+        test_fixture_format("test.config.json5", "a", 1, "_test", json!(42));
     }
 
     #[test]

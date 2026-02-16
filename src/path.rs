@@ -24,9 +24,7 @@ pub fn set(root: &mut Value, path: &str, value: Value) -> Result<(), Error> {
         let obj = current
             .as_object_mut()
             .ok_or_else(|| Error::Path("path segment is not an object".into()))?;
-        current = obj
-            .entry(key)
-            .or_insert_with(|| Value::Object(Map::new()));
+        current = obj.entry(key).or_insert_with(|| Value::Object(Map::new()));
     }
     current
         .as_object_mut()

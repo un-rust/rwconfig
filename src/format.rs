@@ -2,7 +2,7 @@
 
 use crate::error::Error;
 use c12_parser::{
-    parse_json, parse_toml, parse_yaml, stringify_json, stringify_toml, stringify_yaml, Formatted,
+    Formatted, parse_json, parse_toml, parse_yaml, stringify_json, stringify_toml, stringify_yaml,
 };
 use serde_json::Value;
 use std::path::Path;
