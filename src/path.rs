@@ -1,9 +1,14 @@
 //! Dot-path get/set on `serde_json::Value`.
+//!
+//! Paths use dot notation, e.g. `"server.port"` or `"a.b.c"`.
+//! `set` creates parent keys as objects if they don't exist.
 
 use crate::error::Error;
 use serde_json::{Map, Value};
 
 /// Get a value by dot path (e.g. `"info.a"`, `"a.b.c"`).
+///
+/// Returns `None` if any segment in the path is missing or not an object.
 pub fn get<'a>(root: &'a Value, path: &str) -> Option<&'a Value> {
     let mut current = root;
     for key in path.split('.') {
@@ -13,19 +18,26 @@ pub fn get<'a>(root: &'a Value, path: &str) -> Option<&'a Value> {
 }
 
 /// Set a value by dot path. Creates parent keys as objects if needed.
+///
+/// Returns an error if path is empty, or if a non-terminal segment is not an object.
 pub fn set(root: &mut Value, path: &str, value: Value) -> Result<(), Error> {
     if path.trim().is_empty() {
         return Err(Error::Path("empty path".into()));
     }
     let mut keys: Vec<&str> = path.split('.').collect();
     let last = keys.pop().ok_or_else(|| Error::Path("empty path".into()))?;
+
+    // Traverse/create parent path segments
     let mut current = root;
     for key in keys {
         let obj = current
             .as_object_mut()
             .ok_or_else(|| Error::Path("path segment is not an object".into()))?;
+        // Create parent object if missing
         current = obj.entry(key).or_insert_with(|| Value::Object(Map::new()));
     }
+
+    // Insert or overwrite the final value
     current
         .as_object_mut()
         .ok_or_else(|| Error::Path("path parent is not an object".into()))?

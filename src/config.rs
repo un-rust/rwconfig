@@ -1,4 +1,7 @@
-//! RWConfig: in-memory config with get/set and dirty-tracking; `save()` writes to file.
+//! `RWConfig` — in-memory config with get/set and dirty-tracking.
+//!
+//! Load config from file, modify via `get`/`set`, persist with `save()`.
+//! `save()` is a no-op when the config is not dirty.
 
 use crate::error::Error;
 use crate::format::ConfigFormat;
@@ -9,17 +12,25 @@ use serde_json::Value;
 use std::fs;
 use std::path::Path;
 
-/// Config that records every modification; call `save()` to write back to file.
+/// Config struct: loads from file, tracks changes, persists on `save()`.
+///
+/// Supports dot-path access (e.g. `"server.port"`, `"a.b.c"`) and dirty tracking.
 #[derive(Debug)]
 pub struct RWConfig {
+    /// Path to the config file.
     path: std::path::PathBuf,
+    /// Parsed value with format-specific metadata (comments, formatting).
     formatted: Formatted<Value>,
+    /// Detected format (Json, Yaml, Toml).
     format: ConfigFormat,
+    /// Whether any `set()` has been called since load or last save.
     dirty: bool,
 }
 
 impl RWConfig {
     /// Load config from a file. Format is inferred from the file extension.
+    ///
+    /// Supported extensions: `.json`, `.json5`, `.jsonc`, `.yaml`, `.yml`, `.toml`.
     pub fn from_file(path: impl AsRef<Path>) -> Result<Self, Error> {
         let path = path.as_ref().to_path_buf();
         let format = ConfigFormat::from_path(&path).ok_or_else(|| {
@@ -74,11 +85,12 @@ mod tests {
     use serde_json::json;
     use std::path::PathBuf;
 
+    /// Returns the fixtures directory path.
     fn fixtures_dir() -> PathBuf {
         PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("fixtures")
     }
 
-    /// Copy a fixture to a temp file, run load -> get -> set -> save -> reload -> assert.
+    /// Run load -> get -> set -> save -> reload -> assert for a given fixture.
     fn test_fixture_format(
         fixture_name: &str,
         get_path: &str,

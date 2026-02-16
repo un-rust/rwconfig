@@ -1,4 +1,7 @@
 //! Config file format detection and parse/stringify.
+//!
+//! Supports JSON (including JSON5, JSONC), YAML, and TOML.
+//! Format is inferred from the file extension.
 
 use crate::error::Error;
 use c12_parser::{
@@ -10,13 +13,16 @@ use std::path::Path;
 /// Supported config format (detected from file extension).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ConfigFormat {
+    /// JSON format (`.json`, `.json5`, `.jsonc`).
     Json,
+    /// YAML format (`.yaml`, `.yml`).
     Yaml,
+    /// TOML format (`.toml`).
     Toml,
 }
 
 impl ConfigFormat {
-    /// Infer format from file path extension.
+    /// Infer format from file path extension (case-insensitive).
     pub fn from_path(path: &Path) -> Option<Self> {
         path.extension()
             .and_then(|e| e.to_str())

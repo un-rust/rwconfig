@@ -1,4 +1,6 @@
 //! Unified error type for the crate.
+//!
+//! All config operations (load, save, get, set) return this error type.
 
 use std::fmt;
 use std::io;
@@ -6,8 +8,11 @@ use std::io;
 /// Errors that can occur when reading, writing, or modifying config.
 #[derive(Debug)]
 pub enum Error {
+    /// I/O error (e.g. file not found, permission denied).
     Io(io::Error),
+    /// Parse error (invalid JSON/YAML/TOML).
     Parse(String),
+    /// Path error (empty path, path segment not an object).
     Path(String),
 }
 
