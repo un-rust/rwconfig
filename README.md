@@ -4,8 +4,8 @@
 ![Crates.io Version](https://img.shields.io/crates/v/rwconfig)
 ![Crates.io Total Downloads](https://img.shields.io/crates/d/rwconfig)
 ![docs.rs](https://img.shields.io/docsrs/rwconfig)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/betterhyq/rwconfig)
-![GitHub Repo stars](https://img.shields.io/github/stars/betterhyq/rwconfig)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/un-rust/rwconfig)
+![GitHub Repo stars](https://img.shields.io/github/stars/un-rust/rwconfig)
 <!-- /automdrs -->
 
 Read config files, change values with get/set, then write everything back in one go with `save()`. Like getters and setters with dirty-tracking.
@@ -87,10 +87,10 @@ fn main() -> Result<(), Error> {
 
 <!-- automdrs:contributors author="YONGQI" license="MIT" -->
 Published under the [MIT](./LICENSE) license.
-Made by [@YONGQI](https://github.com/betterhyq) 💛
+Made by [@YONGQI](https://github.com/un-rust) 💛
 <br><br>
-<a href="https://github.com/betterhyq/rwconfig/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=betterhyq/rwconfig" />
+<a href="https://github.com/un-rust/rwconfig/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=un-rust/rwconfig" />
 </a>
 <!-- /automdrs -->
 
