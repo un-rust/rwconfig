@@ -10,7 +10,7 @@
 
 Read config files, change values with get/set, then write everything back in one go with `save()`. Like getters and setters with dirty-tracking.
 
-**[Full documentation →](https://betterhyq.github.io/rwconfig/)**
+**[Full documentation →](https://un-rust.github.io/rwconfig/)**
 
 ## Features
 
