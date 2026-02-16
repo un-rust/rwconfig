@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/packageName/',
-  title: "packageName",
+  base: '/rwconfig/',
+  title: "rwconfig",
   description: "A template for developing crate package",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
