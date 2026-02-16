@@ -1,14 +1,14 @@
 [package]
 name = "rwconfig"
-version = "0.0.1"
+version = "1.0.0"
 authors = ["YONGQI <betterhyq@qq.com>"]
 edition = "2024"
-description = "A template for creating a crate package"
+description = "Read/write config files with get/set and dirty-tracking; save() writes all changes at once"
 readme = "README.md"
 homepage = "https://github.com/betterhyq/rwconfig"
 repository = "https://github.com/betterhyq/rwconfig.git"
 license = "MIT"
-keywords = [""]
+keywords = ["config", "json", "yaml", "toml"]
 categories = ["development-tools"]
 
 [[bin]]

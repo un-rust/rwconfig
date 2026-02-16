@@ -1,25 +1,23 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
 hero:
-  name: "packageName"
-  text: "A template for developing crate package"
-  tagline: My great project tagline
+  name: "rwconfig"
+  text: "Config with get/set, save when ready"
+  tagline: Read config files, change values by path, write everything back in one save.
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Guide
+      link: /guide
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: API Reference
+      link: /api
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Get/set by path
+    details: Use dot paths like "info.a" or "a.b.c" to read and write nested values. Parent keys are created automatically on set.
+  - title: Dirty tracking
+    details: Every set() marks the config dirty. save() writes to disk only when there are changes, and clears the dirty flag.
+  - title: Multi-format
+    details: JSON, JSON5, JSONC, YAML, and TOML. Format is inferred from the file extension.
 ---
-

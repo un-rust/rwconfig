@@ -3,27 +3,35 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: '/rwconfig/',
-  title: "rwconfig",
-  description: "A template for developing crate package",
+  title: 'rwconfig',
+  description: 'Read/write config files with get/set and dirty-tracking; save() writes all changes at once.',
+
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: 'Guide', link: '/guide' },
+      { text: 'API', link: '/api' },
+      { text: 'Formats', link: '/formats' },
     ],
 
     sidebar: [
       {
-        text: 'Examples',
+        text: 'Getting started',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
+          { text: 'Guide', link: '/guide' },
+          { text: 'Supported formats', link: '/formats' },
+        ],
+      },
+      {
+        text: 'Reference',
+        items: [
+          { text: 'API Reference', link: '/api' },
+        ],
+      },
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
-  }
+      { icon: 'github', link: 'https://github.com/betterhyq/rwconfig' },
+    ],
+  },
 })
