@@ -1,0 +1,78 @@
+name: Autofix
+
+on:
+  schedule:
+    - cron: '30 0/4 * * *'
+  workflow_dispatch:
+
+jobs:
+  autofmt:
+    name: autofmt
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required for git push
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Run Format
+        run: pnpm format
+      - name: Run Lint
+        run: pnpm lint
+      - name: Global Setup Git
+        run: 'git config --global user.email "betterhyq@qq.com"'
+      - name: Global Setup Git
+        run: 'git config --global user.name "betterhyq"'
+      - name: Add Changes
+        run: git add .
+      - name: Commit and Push
+        run: |
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: format code"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+  automd:
+    name: automd
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required for git push
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install Automd-rs
+        run: cargo install automd-rs
+      - name: Run Automd-rs
+        run: automd-rs
+      - name: Global Setup Git
+        run: 'git config --global user.email "betterhyq@qq.com"'
+      - name: Global Setup Git
+        run: 'git config --global user.name "betterhyq"'
+      - name: Add Changes
+        run: git add .
+      - name: Commit and Push
+        run: |
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update README.md"
+            git push
+          else
+            echo "No changes to commit"
+          fi
