@@ -1,4 +1,4 @@
-use package_name::hello;
+use rwconfig::hello;
 
 fn main() {
     println!("{}", hello("un-rust"));

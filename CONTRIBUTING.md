@@ -4,7 +4,7 @@ Thanks for your interest in contributing to this project.
 
 ## Development setup
 
-- **Rust:** 1.85+ (see [rust-toolchain.toml](./rust-toolchain.toml))
+- **Rust:** 1.93.1+ (see [rust-toolchain.toml](./rust-toolchain.toml))
 - **Node:** 24+ with [Bun](https://bun.sh) (see [package.json](./package.json))
 
 ```sh
